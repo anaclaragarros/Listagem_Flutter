@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:listagem/app/model/invoice.dart';
 import 'package:listagem/app/theme/app_colors.dart';
 import 'package:listagem/app/ui/invoice_detail/invoice_detail_page.dart';
-import '../../../widgets/custom_button.dart';
 
 class InvoiceLoadedView extends StatefulWidget {
   final List<Invoice> invoices;
@@ -55,7 +54,7 @@ class _InvoiceLoadedViewState extends State<InvoiceLoadedView> {
                     filled: true,
                     fillColor: Colors.white,
                     contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
-                    hintText: 'Buscar...',
+                    hintText: 'Pesquisar...',
                     prefixIcon: const Icon(Icons.search, color: AppColors.primary),
                     suffixIcon: query.isNotEmpty
                         ? IconButton(
@@ -81,8 +80,8 @@ class _InvoiceLoadedViewState extends State<InvoiceLoadedView> {
                 const SizedBox(height: 12),
                 Center(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Image.asset('assets/brgaap.png', height: 24),
+                    padding: const EdgeInsets.symmetric(horizontal: 100),
+                    child: Image.asset('assets/brgaap.png', height: 100),
                   ),
                 ),
               ],
@@ -168,7 +167,7 @@ class _InvoiceLoadedViewState extends State<InvoiceLoadedView> {
                               ),
                               SizedBox(
                                 width: 100,
-                                child: IconDetailButton(
+                                child: ElevatedButton.icon(
                                   onPressed: () {
                                     Navigator.push(
                                       context,
@@ -177,6 +176,12 @@ class _InvoiceLoadedViewState extends State<InvoiceLoadedView> {
                                       ),
                                     );
                                   },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.background,
+                                    side: const BorderSide(color: AppColors.primary),
+                                  ),
+                                  icon: const Icon(Icons.description_outlined, color: AppColors.primary),
+                                  label: const Text('Abrir', style: TextStyle(color: AppColors.primary)),
                                 ),
                               ),
                             ],

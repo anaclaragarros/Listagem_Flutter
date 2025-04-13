@@ -7,4 +7,5 @@ class AppColors {
   static const Color background = Colors.white;
   static final Color divider = Colors.grey.shade300;
   static final Color headerBackground = Colors.grey.shade100;
+  static const Color success = Colors.green;
 }
