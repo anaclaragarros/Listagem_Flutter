@@ -3,7 +3,6 @@ import 'package:listagem/app/ui/invoice_list/controller/list_controller.dart';
 import 'package:listagem/app/ui/invoice_list/controller/list_state.dart';
 import 'package:listagem/app/ui/invoice_list/view/invoice_error_view.dart';
 import 'package:listagem/app/ui/invoice_list/view/invoice_loaded_view.dart';
-
 import '../../../core/view_state.dart';
 
 class InvoiceListPage extends StatefulWidget {
@@ -22,6 +21,10 @@ class _InvoiceListPageState extends State<InvoiceListPage> {
     super.initState();
   }
 
+  void _retryLoading() {
+    listController.init();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,11 +36,13 @@ class _InvoiceListPageState extends State<InvoiceListPage> {
         builder: (context, value, child) {
           Widget? body;
 
-          body = switch (value.state) {
-            ViewState.LOADING => const Center(child: CircularProgressIndicator()),
-            ViewState.LOADED => InvoiceLoadedView(invoices: value.invoices),
-            ViewState.ERROR => const InvoiceErrorView(),
-          };
+          if (value.state == ViewState.LOADING) {
+            body = const Center(child: CircularProgressIndicator());
+          } else if (value.state == ViewState.LOADED) {
+            body = InvoiceLoadedView(invoices: value.invoices);
+          } else if (value.state == ViewState.ERROR) {
+            body = InvoiceErrorView(onRetry: _retryLoading);
+          }
 
           return AnimatedSwitcher(
             duration: const Duration(milliseconds: 300),
